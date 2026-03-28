@@ -8,7 +8,10 @@ MAX_TOTAL_THING = 100
 MAX_ATTACK_THING = 20
 MAX_HEALTH_THING = 20
 TOTAL_PERSONS = 10
-MAX_HP_PERSON = 100
+MIN_BASE_HP_PERSON = 10
+MIN_BASE_ATTACK = 1
+MIN_BASE_ARMOR = 1
+MAX_BASE_HP_PERSON = 100
 MAX_BASE_ATTACK = 20
 MAX_BASE_ARMOR = 20
 
@@ -61,14 +64,24 @@ persons = set()
 for _ in range(total_paladins):
     persons.add(Paladin(
         name=person_last_names[random.randint(0, len(person_last_names) - 1)],
-        hp=random.randint(1, MAX_HP_PERSON),
-        base_attack=random.randint(0, MAX_BASE_ATTACK),
-        base_armor=random.randint(0, MAX_BASE_ARMOR)
+        base_health=random.randint(MIN_BASE_HP_PERSON, MAX_BASE_HP_PERSON),
+        base_attack=random.randint(MIN_BASE_ATTACK, MAX_BASE_ATTACK),
+        base_armor=random.randint(MIN_BASE_ARMOR, MAX_BASE_ARMOR)
     ))
 for _ in range(total_paladins):
     persons.add(Warrior(
-        name=person_last_names[random.randint(0, len(person_last_names) - 1)],
-        hp=random.randint(1, MAX_HP_PERSON),
-        base_attack=random.randint(0, MAX_BASE_ATTACK),
-        base_armor=random.randint(0, MAX_BASE_ARMOR)
+        name=person_last_names[
+            random.randint(0, len(person_last_names) - 1)
+        ],
+        base_health=random.randint(
+            MIN_BASE_HP_PERSON, MAX_BASE_HP_PERSON
+        ),
+        base_attack=random.randint(
+            MIN_BASE_ATTACK, MAX_BASE_ATTACK
+        ),
+        base_armor=random.randint(
+            MIN_BASE_ARMOR, MAX_BASE_ARMOR
+        )
     ))
+for person in persons:
+    print(person)
