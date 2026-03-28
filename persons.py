@@ -56,13 +56,13 @@ class Person:
 
 
 class Paladin(Person):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, name, base_health, base_attack, base_armor, things=None):
+        super().__init__(name, base_health, base_attack, base_armor, things=None)
         self.base_armor = 2 * self.base_armor
         self.base_health = 2 * self.base_health
 
 
 class Warrior(Person):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, name, base_health, base_attack, base_armor, things=None):
+        super().__init__(name, base_health, base_attack, base_armor, things=None)
         self.base_attack = 2 * self.base_attack
