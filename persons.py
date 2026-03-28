@@ -34,9 +34,6 @@ class Person:
             self.additional_attack += thing.attack
             self.additional_armor += thing.armor_percent
 
-    def take_damage(self, enemy_attack_value):
-        self.damage_taken += enemy_attack_value
-
     @property
     def health(self):
         return self.base_health + self.additional_health
@@ -53,6 +50,9 @@ class Person:
     @property
     def current_health(self):
         return self.health - self.damage_taken
+
+    def take_damage(self, enemy_attack_value):
+        self.damage_taken += enemy_attack_value*(1 - self.armor)
 
     def __str__(self):
         return f'Гладиатор {self.name}. Здоровье {self.current_health}/{self.health}, Атака {self.attack}, Броня {self.armor*100}%'

@@ -92,13 +92,26 @@ for person in persons:
 for person in persons:
     print(person)
 
-#Шаг 4 - отправляем персонажей на арену, и в цикле в произвольном порядке выбирается пара Нападающий и Защищающийся.
+# Шаг 4 - отправляем персонажей на арену, и в цикле в произвольном порядке выбирается пара Нападающий и Защищающийся.
 while len(persons) > 1:
     person_1 = persons.pop()
     person_2 = persons.pop()
-    #Опишем бой
-    #Вернем выживших
+
+    # Опишем бой
+    # Гладиаторы дерутся одновременно.
+    person_2.take_damage(person_1.attack)
+    person_2.take_damage(person_1.attack)
+
+    # Вернем выживших
     if person_1.current_health > 0:
         persons.add(person_1)
     if person_2.current_health > 0:
         persons.add(person_2)
+
+# Назначаем победителя:
+if len(persons) == 1:
+    winner = persons.pop()
+    print(f'Победил гладиатор {winner}')
+else:
+    winner = persons.pop()
+    print('Никто не победил. Все гладиаторы погибли.')
