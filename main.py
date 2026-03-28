@@ -14,7 +14,7 @@ MIN_BASE_ARMOR = 1
 MAX_BASE_HP_PERSON = 100
 MAX_BASE_ATTACK = 20
 MAX_BASE_ARMOR = 20
-
+MAX_THING_FOR_PERSON = 4
 total_thing = random.randint(1, MAX_TOTAL_THING)
 names = ["меч", "шлем", "плащ", "волшебная палочка", "книга заклинаний"]
 
@@ -83,5 +83,11 @@ for _ in range(total_paladins):
             MIN_BASE_ARMOR, MAX_BASE_ARMOR
         )
     ))
+#for person in persons:
+ #   print(person)
+#Шаг 3 - одеваем персонажей рандомными вещами. Кому-то 1, кому-то больше, но не более 4 вещей в одни руки;
+for person in persons:
+    things_person =[things[random.randint(0, len(things) - 1)] for _ in range(random.randint(1, MAX_THING_FOR_PERSON))]
+    person.set_things(things_person)
 for person in persons:
     print(person)

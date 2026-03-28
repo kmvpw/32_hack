@@ -54,6 +54,9 @@ class Person:
     def current_health(self):
         return self.health - self.damage_taken
 
+    def __str__(self):
+        return f'Гладиатор {self.name}. Здоровье {self.current_health}/{self.health}, Атака {self.attack}, Броня {self.armor*100}%'
+
 
 class Paladin(Person):
     def __init__(self, name, base_health, base_attack, base_armor, things=None):
