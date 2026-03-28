@@ -55,7 +55,7 @@ class Person:
         self.damage_taken += enemy_attack_value*(1 - self.armor)
 
     def __str__(self):
-        return f'Гладиатор {self.name}. Здоровье {self.current_health}/{self.health}, Атака {self.attack}, Броня {self.armor*100}%'
+        return f'Гладиатор {self.name}. Здоровье {round(self.current_health, 1)}/{round(self.health, 1)}, Атака {self.attack}, Броня {self.armor*100}%'
 
 
 class Paladin(Person):

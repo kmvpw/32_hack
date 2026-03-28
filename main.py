@@ -14,7 +14,7 @@ MIN_BASE_ARMOR = 1
 MAX_BASE_HP_PERSON = 100
 MAX_BASE_ATTACK = 20
 MAX_BASE_ARMOR = 20
-MAX_THING_FOR_PERSON = 4
+MAX_THING_FOR_PERSON = 1
 total_thing = random.randint(1, MAX_TOTAL_THING)
 names = ["меч", "шлем", "плащ", "волшебная палочка", "книга заклинаний"]
 
@@ -29,13 +29,10 @@ things = [
     for _ in range(total_thing)
 ]
 things.sort(key=lambda x: x.armor_percent, reverse=False)
-for thing in things:
-    print(thing)
-
 
 #Шаг 2 - создаем произвольно 10 персонажей, кол-во воинов и паладинов произвольно. Имена персонажам тоже рандомные из созданного списка 20 имен.
 #Придумайте своих уникальных персонажей или заставьте сражаться знаменитостей, посмотрим кто сильнее =)
-person_last_names = [
+person_last_names = {
     "ДиКаприо",
     "Хэнкс", 
     "Де Ниро",
@@ -56,23 +53,21 @@ person_last_names = [
     "Стрейзанд",
     "Робертс",
     "Джоли"
-]
+}
 
 total_paladins = random.randint(0, TOTAL_PERSONS)
 total_warriors = TOTAL_PERSONS - total_paladins
 persons = set()
 for _ in range(total_paladins):
     persons.add(Paladin(
-        name=person_last_names[random.randint(0, len(person_last_names) - 1)],
+        name=person_last_names.pop(),
         base_health=random.randint(MIN_BASE_HP_PERSON, MAX_BASE_HP_PERSON),
         base_attack=random.randint(MIN_BASE_ATTACK, MAX_BASE_ATTACK),
-        base_armor=random.randint(MIN_BASE_ARMOR, MAX_BASE_ARMOR)
+        base_armor=random.randint(MIN_BASE_ARMOR, MAX_BASE_ARMOR) / 100
     ))
-for _ in range(total_paladins):
+for _ in range(total_warriors):
     persons.add(Warrior(
-        name=person_last_names[
-            random.randint(0, len(person_last_names) - 1)
-        ],
+        name=person_last_names.pop(),
         base_health=random.randint(
             MIN_BASE_HP_PERSON, MAX_BASE_HP_PERSON
         ),
@@ -81,7 +76,7 @@ for _ in range(total_paladins):
         ),
         base_armor=random.randint(
             MIN_BASE_ARMOR, MAX_BASE_ARMOR
-        )
+        ) / 100
     ))
 #for person in persons:
  #   print(person)
@@ -93,26 +88,23 @@ for person in persons:
         for _ in range(random.randint(1, MAX_THING_FOR_PERSON))
     ]
     person.set_things(things_person)
-for person in persons:
-    print(person)
 
 #Шаг 4 - отправляем персонажей на арену, и в цикле в 
 # произвольном порядке выбирается пара Нападающий и Защищающийся.
 while len(persons) > 1:
     person_1 = persons.pop()
     person_2 = persons.pop()
-
     person_1.take_damage(person_2.attack)
     person_2.take_damage(person_1.attack)
-    print(f'{person_1.name} наносит удар по {person_1.name} на {person_2.attack} урона')
+    print(f'{person_1.name} наносит удар по {person_2.name} на {person_2.attack} урона')
     print(f'{person_2.name} наносит удар по {person_1.name} на {person_1.attack} урона')
 
     if person_1.current_health > 0:
         persons.add(person_1)
     if person_2.current_health > 0:
         persons.add(person_2)
-    print('Finish')
-    if len(persons):
-        print(f'побкдитель: {persons.pop()}')
-    else:
-        print('Все умерли!')
+print('Finish')
+if len(persons):
+    print(f'побкдитель: {persons.pop()}')
+else:
+    print('Все умерли!')
