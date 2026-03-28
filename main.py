@@ -22,7 +22,7 @@ names = ["меч", "шлем", "плащ", "волшебная палочка", 
 things = [
     Thing(
         name=names[random.randint(0, len(names) - 1)],
-        armor_percent=random.randint(0, 10),
+        armor_percent=round(random.randint(0, 10) / 100, 1),
         attack=random.randint(0, MAX_ATTACK_THING),
         health=random.randint(0, MAX_HEALTH_THING)
     )
@@ -85,14 +85,19 @@ for _ in range(total_paladins):
     ))
 #for person in persons:
  #   print(person)
-#Шаг 3 - одеваем персонажей рандомными вещами. Кому-то 1, кому-то больше, но не более 4 вещей в одни руки;
+#Шаг 3 - одеваем персонажей рандомными вещами. 
+# Кому-то 1, кому-то больше, но не более 4 вещей в одни руки;
 for person in persons:
-    things_person =[things[random.randint(0, len(things) - 1)] for _ in range(random.randint(1, MAX_THING_FOR_PERSON))]
+    things_person = [
+        things[random.randint(0, len(things) - 1)]
+        for _ in range(random.randint(1, MAX_THING_FOR_PERSON))
+    ]
     person.set_things(things_person)
 for person in persons:
     print(person)
 
-# Шаг 4 - отправляем персонажей на арену, и в цикле в произвольном порядке выбирается пара Нападающий и Защищающийся.
+#Шаг 4 - отправляем персонажей на арену, и в цикле в 
+# произвольном порядке выбирается пара Нападающий и Защищающийся.
 while len(persons) > 1:
     person_1 = persons.pop()
     person_2 = persons.pop()

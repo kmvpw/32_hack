@@ -9,4 +9,4 @@ class Thing():
         self.health = health
 
     def __str__(self):
-        return f'Вещь: имя - {self.name}, броня - {self.armor_percent}%, атака - {self.attack}, здоровье - {self.health}'
+        return f'Вещь: имя - {self.name}, броня - {self.armor_percent * 100}%, атака - {self.attack}, здоровье - {self.health}'
