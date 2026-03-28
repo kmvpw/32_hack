@@ -101,18 +101,18 @@ for person in persons:
 while len(persons) > 1:
     person_1 = persons.pop()
     person_2 = persons.pop()
-    #Опишем бой
+
     person_1.take_damage(person_2.attack)
     person_2.take_damage(person_1.attack)
     print(f'{person_1.name} наносит удар по {person_1.name} на {person_2.attack} урона')
     print(f'{person_2.name} наносит удар по {person_1.name} на {person_1.attack} урона')
-    #Вернем выживших
+
     if person_1.current_health > 0:
         persons.add(person_1)
     if person_2.current_health > 0:
         persons.add(person_2)
-print('Finish')
-if len(persons):
-    print(f'побкдитель: {persons.pop()}')
-else:
-    print('Все умерли!')
+    print('Finish')
+    if len(persons):
+        print(f'побкдитель: {persons.pop()}')
+    else:
+        print('Все умерли!')
