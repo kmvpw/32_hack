@@ -105,7 +105,7 @@ while len(persons) > 1:
     # Опишем бой
     # Гладиаторы дерутся одновременно.
     person_2.take_damage(person_1.attack)
-    person_2.take_damage(person_1.attack)
+    person_1.take_damage(person_2.attack)
 
     # Вернем выживших
     if person_1.current_health > 0:
