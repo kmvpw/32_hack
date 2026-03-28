@@ -1,15 +1,24 @@
-#Персонаж: class Person Класс, содержащий в себе следующие параметры:
+# Персонаж: class Person Класс, содержащий в себе следующие параметры:
 
-#Имя, кол-во hp/жизней, базовую атаку, базовый процент защиты. Параметры передаются через конструктор;
-#метод, принимающий на вход список вещей set_things(things);
-#метод вычитания жизни на основе входной атаки, а также методы для выполнения алгоритма, представленного ниже;
+# Имя, кол-во hp/жизней, базовую атаку, базовый процент защиты. Параметры передаются через конструктор;
+# метод, принимающий на вход список вещей set_things(things);
+# метод вычитания жизни на основе входной атаки, а также методы для выполнения алгоритма, представленного ниже;
 
 class Person:
-    def __init__(self, name, hp, base_attack, base_armor, things=None):
+    def __init__(self, name, base_health, base_attack, base_armor, things=None):
         self.name = name
-        self.hp = hp
+        self.base_health = base_health
         self.base_attack = base_attack
         self.base_armor = base_armor
+
+        self.additional_attack = 0
+        self.additional_armor = 0
+        self.additional_health = 0
+
+        # По-сути костыль, но костыль со смыслом.
+        # Мы в ходе игры не уменьшаем показатель здоровья,
+        # а накапливаем повреждения
+        self.damage_taken = 0
 
         # Одеваем персону в данную ему снарягу, если та подана при создании объекта.
         self.things = []
@@ -21,18 +30,36 @@ class Person:
         self.things += things
 
         for thing in things:
-            self.hp += thing.health
-            self.base_attack += thing.attack
-            # Условие капа брони. Показатель защиты не более 100%.
-            self.base_armor = min(self.base_armor + thing.armor_percent, 1)
+            self.additional_health += thing.health
+            self.additional_attack += thing.attack
+            self.additional_armor += thing.armor_percent
+
+    def take_damage(self, enemy_attack_value):
+        self.damage_taken += enemy_attack_value
+
+    @property
+    def health(self):
+        return self.base_health + self.additional_health
+
+    @property
+    def armor(self):
+        # Кап защиты 100%.
+        return min(1, self.additional_armor + self.base_armor)
+
+    @property
+    def attack(self):
+        return self.base_attack + self.additional_attack
+
+    @property
+    def current_health(self):
+        return self.health - self.damage_taken
 
 
 class Paladin(Person):
     def __init__(self):
         super().__init__()
-        self.base_armor = self.base_armor = min(2 * self.base_armor, 1)
-        self.hp = 2 * self.hp
-
+        self.base_armor = 2 * self.base_armor
+        self.base_health = 2 * self.base_health
 
 
 class Warrior(Person):
