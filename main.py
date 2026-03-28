@@ -91,3 +91,14 @@ for person in persons:
     person.set_things(things_person)
 for person in persons:
     print(person)
+
+#Шаг 4 - отправляем персонажей на арену, и в цикле в произвольном порядке выбирается пара Нападающий и Защищающийся.
+while len(persons) > 1:
+    person_1 = persons.pop()
+    person_2 = persons.pop()
+    #Опишем бой
+    #Вернем выживших
+    if person_1.current_health > 0:
+        persons.add(person_1)
+    if person_2.current_health > 0:
+        persons.add(person_2)
