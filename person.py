@@ -16,7 +16,6 @@ class Person:
         if things:
             self.set_things(things)
 
-
     def set_things(self, things: list):
         # Даём Person-е список его вещей
         self.things += things
